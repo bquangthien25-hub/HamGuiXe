@@ -23,7 +23,7 @@ namespace ParkingApp
 
         public DashboardForm()
         {
-            Text = "Hệ thống Quản lý Hầm Gửi Xe V3.0";
+            Text = "Hệ thống Quản lý Hầm Gửi Xe V2.0";
             WindowState = FormWindowState.Maximized;
             StartPosition = FormStartPosition.CenterScreen;
             BackColor = ModernTheme.BackgroundDark;

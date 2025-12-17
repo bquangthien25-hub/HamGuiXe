@@ -28,7 +28,7 @@ namespace ParkingApp.Forms
         private void BuildModernUI()
         {
             // Form settings
-            this.Text = "Hệ thống Quản lý Hầm Gửi Xe V3";
+            this.Text = "Hệ thống Quản lý Hầm Gửi Xe V2";
             this.Size = new Size(1000, 600);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = ModernTheme.BackgroundDark;
@@ -41,7 +41,7 @@ namespace ParkingApp.Forms
                 Size = new Size(40, 40),
                 Location = new Point(this.Width - 45, 5),
                 BackColor = Color.Transparent,
-                ForeColor = Color.White,
+                ForeColor = Color.Black,
                 FlatStyle = FlatStyle.Flat,
                 Font = new Font("Segoe UI", 16F),
                 Cursor = Cursors.Hand
@@ -65,7 +65,7 @@ namespace ParkingApp.Forms
                 Text = "🅿️",
                 Font = new Font("Segoe UI", 72F, FontStyle.Bold),
                 ForeColor = ModernTheme.Primary,
-                Location = new Point(150, 150),
+                Location = new Point(170, 150),
                 AutoSize = true
             };
 
@@ -73,7 +73,7 @@ namespace ParkingApp.Forms
             {
                 Text = "PARKING\nMANAGEMENT",
                 Font = new Font("Segoe UI", 28F, FontStyle.Bold),
-                ForeColor = Color.White,
+                ForeColor = Color.LightSkyBlue,
                 Location = new Point(100, 280),
                 AutoSize = true,
                 TextAlign = ContentAlignment.MiddleCenter
@@ -81,16 +81,16 @@ namespace ParkingApp.Forms
 
             Label lblVersion = new Label
             {
-                Text = "Professional Edition V3.0",
+                Text = "Professional Edition V2.0",
                 Font = ModernTheme.FontRegular,
                 ForeColor = ModernTheme.TextSecondary,
-                Location = new Point(150, 400),
+                Location = new Point(150, 500),
                 AutoSize = true
             };
 
             Label lblSubtitle = new Label
             {
-                Text = "Hệ thống quản lý bãi xe thông minh\ncho doanh nghiệp 600-800 nhân sự",
+                Text = "Hệ Thống Quản Lý Bãi Xe Thông Minh",
                 Font = ModernTheme.FontSmall,
                 ForeColor = ModernTheme.TextMuted,
                 Location = new Point(100, 440),
@@ -115,7 +115,7 @@ namespace ParkingApp.Forms
 
             Label lblLoginTitle = new Label
             {
-                Text = "Đăng nhập",
+                Text = "Đăng Nhập",
                 Font = ModernTheme.FontHeader,
                 ForeColor = Color.White,
                 Location = new Point(30, 30),
