@@ -1,29 +1,80 @@
-------------------------------------------------
-I. KIỂM TRA SQL SERVER ĐANG CHẠY
-------------------------------------------------
-1. Mở SQL Server Configuration Manager
-2. Kiểm tra các dịch vụ sau:
-   - SQL Server (MSSQLSERVER hoặc SQLEXPRESS) → Running
-   - SQL Server Browser → Running
-   Nếu chưa chạy → Click chuột phải → Start
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+|                                                      🚗 HỆ THỐNG QUẢN LÝ HẦM GỬI XE                                                               |
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+1. Giới thiệu
 
-------------------------------------------------
-II. BẬT TCP/IP VÀ CẤU HÌNH PORT 1433
-------------------------------------------------
-1. Mở SQL Server Configuration Manager
-2. Vào:
-   SQL Server Network Configuration
-   → Protocols for MSSQLSERVER (hoặc SQLEXPRESS)
-3. Click phải vào TCP/IP → Enable
-4. Click phải TCP/IP → Properties
-5. Chọn tab "IP Addresses"
+Ứng dụng Quản lý Hầm Gửi Xe được xây dựng nhằm hỗ trợ quản lý hoạt động gửi – nhận xe trong bãi/hầm xe một cách chính xác, nhanh chóng và hiệu quả.
+Hệ thống giúp quản lý thông tin xe, vé gửi xe, lượt vào/ra, nhân viên và doanh thu, đồng thời giảm sai sót so với phương pháp ghi chép thủ công.
 
-6. Kéo xuống IPAll:
-   - TCP Dynamic Ports: (xóa hết)
-   - TCP Port: 1433
+Ứng dụng phù hợp triển khai cho:
 
-7. Nhấn OK
+- Chung cư
+- Trường học
+- Trung tâm thương mại
+- Bãi giữ xe tư nhân
+--------------------------------------------------------------------------------------------------------------------------
+2. Công nghệ sử dụng
 
-------------------------------------------------
-III. KHỞI ĐỘNG LẠI SQL SERVER
-------------------------------------------------
+Ngôn ngữ: C#
+
+Nền tảng: .NET Framework 4.8
+
+Giao diện: Windows Forms (WinForms)
+
+Cơ sở dữ liệu: Microsoft SQL Server
+
+IDE: Visual Studio / VS Code
+
+Mô hình: Desktop Application
+----------------------------------------------------------------------------------------------------------------------------
+3. Các chức năng chính
+----------------------------------------------------------------------------------------------------------------------------
+🔐 3.1. Đăng nhập & phân quyền
+
+Đăng nhập hệ thống
+
+Phân quyền theo vai trò (Admin / Staff)
+
+Ẩn/hiện chức năng theo quyền
+-------------------------------------------------------------------------------------------------------------------------------
+🚘 3.2. Quản lý xe
+
+Thêm / sửa / xóa thông tin xe
+
+Lưu biển số, loại xe, thời gian gửi
+
+Tìm kiếm nhanh theo biển số
+----------------------------------------------------------------------------------------------------------------------------------
+🎫 3.3. Quản lý vé gửi xe
+
+Tạo vé gửi xe
+
+Theo dõi trạng thái vé (đang gửi / đã trả)
+
+Kiểm soát vé hợp lệ
+------------------------------------------------------------------------------------------------------------------------------------
+🔁 3.4. Quản lý vào – ra
+
+Ghi nhận xe vào hầm
+
+Xử lý xe ra khỏi hầm
+
+Trường hợp mất vé
+
+Hiển thị danh sách lượt gửi
+----------------------------------------------------------------------------------------------------------------------------------------
+👤 3.5. Quản lý nhân viên
+
+Thêm / sửa / xóa nhân viên
+
+Phân quyền truy cập
+
+Quản lý tài khoản đăng nhập
+-------------------------------------------------------------------------------------------------------------------------------------------
+💰 3.6. Thống kê & doanh thu
+
+Thống kê số lượt gửi xe
+
+Tính tiền gửi xe
+
+Báo cáo doanh thu theo ngày / tháng
