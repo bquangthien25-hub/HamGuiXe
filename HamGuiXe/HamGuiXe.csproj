@@ -150,6 +150,9 @@
     <Compile Include="XeForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="BaoCaoForm.resx">
+      <DependentUpon>BaoCaoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </EmbeddedResource>

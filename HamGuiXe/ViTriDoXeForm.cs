@@ -76,7 +76,7 @@ namespace ParkingApp.Forms
                 Width = 200,                              // Chiều rộng
                 DropDownStyle = ComboBoxStyle.DropDownList,// Chỉ chọn, không cho nhập
                 BackColor = ModernTheme.BackgroundDark,   // Nền tối
-                ForeColor = Color.White,                  // Chữ trắng
+                ForeColor = Color.Black,                  // Chữ trắng
                 FlatStyle = FlatStyle.Flat                // Phẳng
             };
             cmbKhuVuc.Items.AddRange(new string[] { "Tất cả", "Khu A - Xe Máy", "Khu B - Ô Tô" }); // Danh sách khu vực

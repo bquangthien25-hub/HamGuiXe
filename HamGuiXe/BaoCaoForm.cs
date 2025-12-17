@@ -122,7 +122,7 @@ namespace ParkingApp.Forms
 
             btnExportExcel = new ModernButton
             {
-                Text = "📄 Export Excel",
+                Text = "📄 Xuất File Excel",
                 Location = new Point(180, 95),
                 Width = 150,
                 Height = 35,
@@ -313,6 +313,24 @@ namespace ParkingApp.Forms
                 MessageBox.Show($"Lỗi tạo báo cáo: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // BaoCaoForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "BaoCaoForm";
+            this.Load += new System.EventHandler(this.BaoCaoForm_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void BaoCaoForm_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void BtnExportExcel_Click(object sender, EventArgs e)

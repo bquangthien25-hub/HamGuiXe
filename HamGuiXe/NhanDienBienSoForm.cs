@@ -30,7 +30,7 @@ namespace HamGuiXe
         // ================== UI ==================
         private void InitializeComponent()
         {
-            Text = "Nhận diện biển số từ ảnh tĩnh";
+            Text = "Nhận Diện Biển Số";
             Size = new SD.Size(900, 500);
             StartPosition = FormStartPosition.CenterScreen;
 

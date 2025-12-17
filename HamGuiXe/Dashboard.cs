@@ -154,7 +154,7 @@ namespace ParkingApp
             // Logo
             Label lblLogo = new Label()
             {
-                Text = "🅿️ PARKING V3",
+                Text = "🅿️ PARKING V2",
                 Font = new Font("Segoe UI", 16F, FontStyle.Bold),
                 ForeColor = ModernTheme.Primary,
                 Dock = DockStyle.Top,
