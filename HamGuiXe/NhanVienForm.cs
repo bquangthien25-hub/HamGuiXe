@@ -129,6 +129,20 @@ namespace ParkingApp.Forms
                 da.Fill(dt);
 
                 dgv.DataSource = dt;
+
+                // Only Admin can see password column
+                if (dgv.Columns["MatKhau"] != null)
+                {
+                    if (LoginForm.CurrentRole == "Admin")
+                    {
+                        dgv.Columns["MatKhau"].HeaderText = "Mat khau (hashed)";
+                        dgv.Columns["MatKhau"].Visible = true;
+                    }
+                    else
+                    {
+                        dgv.Columns["MatKhau"].Visible = false;
+                    }
+                }
             }
         }
 
@@ -158,12 +172,15 @@ namespace ParkingApp.Forms
                     return;
                 }
 
+                // Hash password before saving to database
+                string hashedPassword = SecurityHelper.HashPassword(txtPass.Text);
+
                 SqlCommand cmd = new SqlCommand(
                     @"INSERT INTO NguoiDung (Email, MatKhau, HoTen, MaVaiTro, TrangThai)
                       VALUES (@e, @p, @h, @r, 1)", conn);
 
                 cmd.Parameters.AddWithValue("@e", txtEmail.Text);
-                cmd.Parameters.AddWithValue("@p", txtPass.Text);
+                cmd.Parameters.AddWithValue("@p", hashedPassword);  // Save hashed password
                 cmd.Parameters.AddWithValue("@h", txtHoTen.Text);
                 cmd.Parameters.AddWithValue("@r", cmbRole.SelectedValue);
 
@@ -184,12 +201,28 @@ namespace ParkingApp.Forms
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(
-                    @"UPDATE NguoiDung SET Email=@e, MatKhau=@p, HoTen=@h, MaVaiTro=@r 
-                      WHERE MaND=@id", conn);
+                string sql;
+                SqlCommand cmd;
+
+                // If password field is empty, don't update password
+                if (string.IsNullOrEmpty(txtPass.Text))
+                {
+                    sql = @"UPDATE NguoiDung SET Email=@e, HoTen=@h, MaVaiTro=@r 
+                            WHERE MaND=@id";
+                    cmd = new SqlCommand(sql, conn);
+                }
+                else
+                {
+                    // Hash new password before saving
+                    string hashedPassword = SecurityHelper.HashPassword(txtPass.Text);
+                    
+                    sql = @"UPDATE NguoiDung SET Email=@e, MatKhau=@p, HoTen=@h, MaVaiTro=@r 
+                            WHERE MaND=@id";
+                    cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@p", hashedPassword);
+                }
 
                 cmd.Parameters.AddWithValue("@e", txtEmail.Text);
-                cmd.Parameters.AddWithValue("@p", txtPass.Text);
                 cmd.Parameters.AddWithValue("@h", txtHoTen.Text);
                 cmd.Parameters.AddWithValue("@r", cmbRole.SelectedValue);
                 cmd.Parameters.AddWithValue("@id", id);
@@ -197,7 +230,7 @@ namespace ParkingApp.Forms
                 cmd.ExecuteNonQuery();
             }
 
-            MessageBox.Show("Sửa tài khoản thành công!");
+            MessageBox.Show("Sua tai khoan thanh cong!");
             LoadData();
         }
 

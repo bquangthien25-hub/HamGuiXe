@@ -151,20 +151,38 @@ namespace HamGuiXe
         // ================== OCR ==================
         private string RunOCR(SD.Bitmap bmp)
         {
-            using (var engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default))
+            try
             {
-                engine.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.-");
-                engine.DefaultPageSegMode = PageSegMode.SingleLine;
-
-                using (var page = engine.Process(bmp))
+                using (var engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default))
                 {
-                    return page.GetText()
-                               .ToUpper()
-                               .Replace("\n", "")
-                               .Replace("\r", "")
-                               .Replace(" ", "")
-                               .Trim();
+                    engine.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.-");
+                    engine.DefaultPageSegMode = PageSegMode.SingleLine;
+
+                    using (var page = engine.Process(bmp))
+                    {
+                        return page.GetText()
+                                   .ToUpper()
+                                   .Replace("\n", "")
+                                   .Replace("\r", "")
+                                   .Replace(" ", "")
+                                   .Trim();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "LOI: Chua cai dat Tesseract OCR!\n\n" +
+                    "Tinh nang nhan dien bien so can:\n" +
+                    "1. Tai file 'eng.traineddata' tu:\n" +
+                    "   https://github.com/tesseract-ocr/tessdata\n\n" +
+                    "2. Tao thu muc 'tessdata' trong thu muc chua file .exe\n\n" +
+                    "3. Copy file 'eng.traineddata' vao thu muc 'tessdata'\n\n" +
+                    $"Chi tiet loi: {ex.Message}",
+                    "Loi Tesseract OCR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return "";
             }
         }
 
