@@ -19,6 +19,8 @@ namespace ParkingApp.Forms
         private Panel loginPanel;
         private CheckBox chkRemember;
 
+        public static int CurrentUserId { get; internal set; }
+
         public LoginForm()
         {
             InitializeComponent();
@@ -28,7 +30,7 @@ namespace ParkingApp.Forms
         private void BuildModernUI()
         {
             // Form settings
-            this.Text = "Hệ thống Quản lý Hầm Gửi Xe V2";
+            this.Text = "Hệ thống Quản lý Hầm Gửi Xe Thông Minh";
             this.Size = new Size(1000, 600);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = ModernTheme.BackgroundDark;
@@ -73,7 +75,7 @@ namespace ParkingApp.Forms
             {
                 Text = "PARKING\nMANAGEMENT",
                 Font = new Font("Segoe UI", 28F, FontStyle.Bold),
-                ForeColor = Color.LightSkyBlue,
+                ForeColor = Color.MediumPurple,
                 Location = new Point(100, 280),
                 AutoSize = true,
                 TextAlign = ContentAlignment.MiddleCenter
@@ -81,7 +83,7 @@ namespace ParkingApp.Forms
 
             Label lblVersion = new Label
             {
-                Text = "Professional Edition V2.0",
+                Text = "Professional Edition V2.1",
                 Font = ModernTheme.FontRegular,
                 ForeColor = ModernTheme.TextSecondary,
                 Location = new Point(150, 500),
@@ -117,7 +119,7 @@ namespace ParkingApp.Forms
             {
                 Text = "Đăng Nhập",
                 Font = ModernTheme.FontHeader,
-                ForeColor = Color.White,
+                ForeColor = Color.Blue,
                 Location = new Point(30, 30),
                 AutoSize = true
             };
@@ -150,7 +152,7 @@ namespace ParkingApp.Forms
                 ForeColor = Color.Black,
                 BorderStyle = BorderStyle.None,
                 Font = new Font("Segoe UI", 11F),
-                Text = "admin@parking.com" // Pre-fill for testing
+                
             };
             Panel userBorder = CreateInputBorder(txtUser);
 
@@ -174,7 +176,7 @@ namespace ParkingApp.Forms
                 BorderStyle = BorderStyle.None,
                 Font = new Font("Segoe UI", 11F),
                 PasswordChar = '●',
-                Text = "123456" // Pre-fill for testing
+            
             };
             Panel passBorder = CreateInputBorder(txtPass);
 

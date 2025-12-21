@@ -275,7 +275,7 @@ namespace ParkingApp.Forms
                 cmd.ExecuteNonQuery();
             }
 
-            MessageBox.Show("Đặt lại mật khẩu thành '123'!");
+            MessageBox.Show("Đặt lại mật khẩu!");
             LoadData();
         }
 
@@ -288,13 +288,20 @@ namespace ParkingApp.Forms
                 return;
             }
 
-            int id = Convert.ToInt32(dgv.SelectedRows[0].Cells["MaND"].Value);
+            int userId = Convert.ToInt32(dgv.SelectedRows[0].Cells["MaND"].Value);
+            int currentUserId = LoginForm.CurrentUserId;
+
+            if (userId == currentUserId)
+            {
+                MessageBox.Show("Không thể xóa chính mình!");
+                return;
+            }
 
             var confirm = MessageBox.Show(
-                "Bạn có chắc muốn xóa tài khoản này vĩnh viễn?\nHành động không thể hoàn tác!",
+                "Bạn có chắc muốn XÓA VĨNH VIỄN tài khoản này?\n\nHành động KHÔNG THỂ HOÀN TÁC!",
                 "Xác nhận xóa",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
+                MessageBoxIcon.Error
             );
 
             if (confirm != DialogResult.Yes) return;
@@ -304,15 +311,17 @@ namespace ParkingApp.Forms
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(
-                    "DELETE FROM NguoiDung WHERE MaND=@id", conn);
+                    "DELETE FROM NguoiDung WHERE MaND = @id",
+                    conn);
 
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@id", userId);
                 cmd.ExecuteNonQuery();
             }
 
-            MessageBox.Show("Xóa tài khoản thành công!");
+            MessageBox.Show("Đã xóa tài khoản!");
             LoadData();
         }
+
 
 
         private void BtnTim_Click(object sender, EventArgs e)

@@ -1,10 +1,13 @@
 ﻿using ParkingApp.Forms;
-using ParkingApp.Utils;
 using ParkingApp.UI;
+using ParkingApp.Utils;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Net;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -17,21 +20,44 @@ namespace ParkingApp
         private Label lblWelcome, lblDateTime;
         private Timer refreshTimer, animationTimer;
         private int animationStep = 0;
-        
+
         // Stat cards - ADDED BACK
         private StatCard cardXeDangGui, cardDoanhThu, cardTyLeLayDay, cardLuotVaoRa;
 
+        private void DashboardForm_Load(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // DashboardForm
+            // 
+            this.ClientSize = new System.Drawing.Size(274, 229);
+            this.Name = "DashboardForm";
+            this.Load += new System.EventHandler(this.DashboardForm_Load);
+            this.ResumeLayout(false);
+
+        }
+
         public DashboardForm()
         {
-            Text = "Hệ thống Quản lý Hầm Gửi Xe V2.0";
+            Text = "Hệ thống Quản lý Hầm Gửi Xe Thông Minh";
             WindowState = FormWindowState.Maximized;
             StartPosition = FormStartPosition.CenterScreen;
             BackColor = ModernTheme.BackgroundDark;
 
+
+            InitializeComponent();
+            
+
+
             BuildUI();
             ApplyRole();
             LoadDashboard();
-            
+
             // Auto refresh every 30 seconds
             refreshTimer = new Timer();
             refreshTimer.Interval = 30000; // 30 seconds
@@ -46,7 +72,7 @@ namespace ParkingApp
         {
             animationStep = 0;
             headerPanel.Visible = true;
-            
+
             animationTimer = new Timer();
             animationTimer.Interval = 50; // 50ms per step
             animationTimer.Tick += AnimationTimer_Tick;
@@ -95,7 +121,7 @@ namespace ParkingApp
             {
                 Text = $"Xin chào, {LoginForm.CurrentUser}",
                 Font = new Font("Segoe UI", 11F, FontStyle.Bold), // Smaller font
-                ForeColor = Color.White,
+                ForeColor = Color.Cyan,
                 Location = new Point(20, 10),  // Adjusted position
                 AutoSize = true
             };
@@ -154,9 +180,9 @@ namespace ParkingApp
             // Logo
             Label lblLogo = new Label()
             {
-                Text = "🅿️ PARKING V2",
+                Text = "🅿️ PARKING SMART",
                 Font = new Font("Segoe UI", 16F, FontStyle.Bold),
-                ForeColor = ModernTheme.Primary,
+                ForeColor = ModernTheme.BackgroundDark,
                 Dock = DockStyle.Top,
                 Height = 60,
                 TextAlign = ContentAlignment.MiddleCenter
@@ -212,11 +238,13 @@ namespace ParkingApp
                 Cursor = Cursors.Hand
             };
             btn.FlatAppearance.BorderSize = 0;
-            btn.MouseEnter += (s, e) => {
+            btn.MouseEnter += (s, e) =>
+            {
                 btn.BackColor = ModernTheme.BackgroundHover;
                 btn.ForeColor = ModernTheme.PrimaryLight;  // Lighter blue on hover
             };
-            btn.MouseLeave += (s, e) => {
+            btn.MouseLeave += (s, e) =>
+            {
                 btn.BackColor = ModernTheme.BackgroundCard;
                 btn.ForeColor = ModernTheme.Primary;  // Back to blue
             };
@@ -349,7 +377,7 @@ namespace ParkingApp
         {
             Chart chart = new Chart();
             chart.BackColor = ModernTheme.BackgroundDark;
-            
+
             ChartArea chartArea = new ChartArea();
             chartArea.BackColor = ModernTheme.BackgroundDark;
             chartArea.AxisX.LabelStyle.ForeColor = Color.White;
@@ -364,7 +392,7 @@ namespace ParkingApp
             series.ChartType = SeriesChartType.Column;
             series.Color = ModernTheme.Primary;
             series.BorderWidth = 2;
-            
+
             // Load data from database
             try
             {
@@ -385,7 +413,7 @@ namespace ParkingApp
             catch { }
 
             chart.Series.Add(series);
-            
+
             return chart;
         }
 
@@ -430,7 +458,7 @@ namespace ParkingApp
                         @"SELECT TOP 10 HanhDong, ChiTiet, ThoiGian
                           FROM NhatKyHeThong
                           ORDER BY ThoiGian DESC", conn);
-                    
+
                     SqlDataReader dr = cmd.ExecuteReader();
 
                     while (dr.Read())
@@ -464,7 +492,7 @@ namespace ParkingApp
                 refreshTimer?.Dispose();
                 animationTimer?.Stop();
                 animationTimer?.Dispose();
-                
+
                 // Close this form - will trigger Application.Exit()
                 this.Close();
             }
@@ -478,5 +506,9 @@ namespace ParkingApp
                 btnBaoCao.Visible = false;
             }
         }
+        public const string APP_VERSION = "2.0";
+        // Kiem Tra Ban cap nhat
+
+
     }
 }

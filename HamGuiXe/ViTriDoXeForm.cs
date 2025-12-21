@@ -21,7 +21,7 @@ namespace ParkingApp.Forms
 
         public ViTriDoXeForm()
         {
-            Text = "Quản lý Vị trí Đỗ Xe";                // Tiêu đề form
+            Text = "Vị trí Đỗ Xe";                // Tiêu đề form
             Size = new Size(1200, 800);                   // Kích thước form
             BackColor = ModernTheme.BackgroundDark;       // Nền tối theo theme
 
@@ -36,7 +36,7 @@ namespace ParkingApp.Forms
             {
                 Text = "SO DO BAI XE",                    // Tiêu đề không dấu
                 Font = ModernTheme.FontHeader,            // Font header
-                ForeColor = Color.Black,                  // Màu chữ
+                ForeColor = Color.OrangeRed,                  // Màu chữ
                 Location = new Point(20, 20),             // Vị trí
                 AutoSize = true                           // Tự co giãn theo nội dung
             };
