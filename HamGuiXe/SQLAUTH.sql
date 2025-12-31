@@ -1,0 +1,6 @@
+USE master;
+GO
+
+CREATE LOGIN parking_user 
+WITH PASSWORD = '123456';
+GO

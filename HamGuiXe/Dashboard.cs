@@ -167,7 +167,7 @@ namespace ParkingApp
                 Padding = new Padding(20)
             };
             Controls.Add(contentPanel);
-
+                    
             // ===== MENU PANEL ===== (Keep dark for contrast)
             menuPanel = new Panel()
             {

@@ -25,7 +25,6 @@ GO
 -- Chuyển sang sử dụng database vừa tạo
 USE ParkingDB;
 GO
-
 -- =====================================================
 -- 2. TẠO CÁC BẢNG (TABLES)
 -- =====================================================
@@ -107,6 +106,22 @@ CREATE TABLE LichSuRaVao (
     TrangThai NVARCHAR(50) DEFAULT N'Đang gửi', -- 'Đang gửi', 'Đã ra'
     TienThu DECIMAL(18,2) NULL,
     GhiChu NVARCHAR(255) NULL
+);
+GO
+
+-- ============ BẢNG DOANH THU ============
+CREATE TABLE DoanhThu (
+    MaDoanhThu INT PRIMARY KEY IDENTITY(1,1),
+    MaLuot INT NOT NULL,
+    NgayThu DATETIME NOT NULL DEFAULT GETDATE(),
+    LoaiXe NVARCHAR(50) NOT NULL, -- 'Xe máy', 'Ô tô'
+    SoTien DECIMAL(18,2) NOT NULL,
+    PhuongThucTT NVARCHAR(50) DEFAULT N'Tiền mặt', -- 'Tiền mặt', 'Chuyển khoản', 'Thẻ'
+    NguoiThu INT NULL, -- Mã người dùng thu tiền
+    GhiChu NVARCHAR(255) NULL,
+    ThoiGianTao DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (MaLuot) REFERENCES LichSuRaVao(MaLuot) ON DELETE CASCADE,
+    FOREIGN KEY (NguoiThu) REFERENCES NguoiDung(MaND)
 );
 GO
 
@@ -268,6 +283,14 @@ UPDATE ViTriDoXe SET MaLuot = (SELECT MaLuot FROM LichSuRaVao WHERE BienSo = '51
 UPDATE ViTriDoXe SET MaLuot = (SELECT MaLuot FROM LichSuRaVao WHERE BienSo = '29A-11111') WHERE TenViTri = 'B01';
 GO
 
+-- ============ DOANH THU ============
+-- Thêm doanh thu cho các lượt xe đã ra
+INSERT INTO DoanhThu (MaLuot, NgayThu, LoaiXe, SoTien, PhuongThucTT, NguoiThu, GhiChu) VALUES
+((SELECT MaLuot FROM LichSuRaVao WHERE BienSo = '51F-99999'), DATEADD(HOUR, -2, GETDATE()), N'Xe máy', 3000, N'Tiền mặt', 2, N'Gửi xe 3 giờ'),
+((SELECT MaLuot FROM LichSuRaVao WHERE BienSo = '29A-88888'), DATEADD(HOUR, -1, GETDATE()), N'Ô tô', 50000, N'Chuyển khoản', 2, N'Gửi xe 7 giờ'),
+((SELECT MaLuot FROM LichSuRaVao WHERE BienSo = '51G-77777'), DATEADD(HOUR, -3, GETDATE()), N'Xe máy', 3000, N'Tiền mặt', 2, N'Gửi xe 7 giờ');
+GO
+
 -- =====================================================
 -- 5. KIỂM TRA VÀ THỐNG KÊ
 -- =====================================================
@@ -292,6 +315,8 @@ UNION ALL
 SELECT 'ViTriDoXe', COUNT(*) FROM ViTriDoXe
 UNION ALL
 SELECT 'LichSuRaVao', COUNT(*) FROM LichSuRaVao
+UNION ALL
+SELECT 'DoanhThu', COUNT(*) FROM DoanhThu
 UNION ALL
 SELECT 'BaoCao', COUNT(*) FROM BaoCao
 UNION ALL
@@ -319,4 +344,7 @@ CREATE INDEX IX_LichSuRaVao_BienSo ON LichSuRaVao(BienSo);
 CREATE INDEX IX_LichSuRaVao_TrangThai ON LichSuRaVao(TrangThai);
 CREATE INDEX IX_ViTriDoXe_TrangThai ON ViTriDoXe(TrangThai);
 CREATE INDEX IX_Ve_MaKH ON Ve(MaKH);
+CREATE INDEX IX_DoanhThu_NgayThu ON DoanhThu(NgayThu);
+CREATE INDEX IX_DoanhThu_NguoiThu ON DoanhThu(NguoiThu);
+CREATE INDEX IX_DoanhThu_MaLuot ON DoanhThu(MaLuot);
 GO

@@ -218,12 +218,30 @@ namespace ParkingApp.Forms
             return "Xe máy";
         }
 
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // RaVaoForm
+            // 
+            this.ClientSize = new System.Drawing.Size(274, 229);
+            this.Name = "RaVaoForm";
+            this.Load += new System.EventHandler(this.RaVaoForm_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void RaVaoForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
         // ================= XE VÀO (NHẬP TAY) =================
         private void BtnVao_Click(object sender, EventArgs e)
         {
             if (txtBienSo.Text.Trim() == "")
             {
-                MessageBox.Show("Nhập biển số xe!");
+                MessageBox.Show("Vui lòng nhập biển số xe");
                 return;
             }
 
